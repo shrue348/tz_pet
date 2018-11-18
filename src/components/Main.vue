@@ -12,6 +12,8 @@
       ></datepicker>
 
       <div class="small">Используется библиотека vuejs-datepicker@1.5.4: <a target="_blank" href="https://github.com/charliekassel/vuejs-datepicker">https://github.com/charliekassel/vuejs-datepicker</a></div>
+
+      {{this.datePicker.highlighted.daysOfMonth}}
     </div>
   </div>
 </template>
@@ -33,26 +35,45 @@ export default {
         ru: ru,
         placeholder: 'wef',
         highlighted: {
+          daysOfMonth: [],
           days: []
         }
-      }
+      },
+      test: ''
     }
   },
   methods: {
     datePickerFormat(date){
       let dayNames = ['Воскресенье', 'Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота'],
-          dayNum;
+          day,
+          dayNum,
+          dayDate,
+          lastDayOfMonth;
 
-      if (date) dayNum = new Date(date).getDay()
-      else dayNum = this.datePicker.date.getDay()
+      if (date) day = new Date(date)
+      else day = new Date(this.datePicker.date)
 
-      this.datePicker.highlighted.days.push(dayNum)
+      dayNum = day.getDay()
+      dayDate = day.getDate()
+
+      lastDayOfMonth = new Date(new Date(day).getFullYear(), new Date(day).getMonth() + 1, 0);
+      lastDayOfMonth = lastDayOfMonth.getDate()
+
+      this.datePicker.highlighted.daysOfMonth.length = 0
+
+      while ( dayDate <= lastDayOfMonth || dayDate <= 31) {
+        console.log(dayDate, lastDayOfMonth)
+        this.datePicker.highlighted.daysOfMonth.push(dayDate)
+        dayDate+=7
+      }
+
       return dayNames[dayNum]
     },
+
   },
   created(){
-    this.datePicker.placeholder = this.datePickerFormat(Date.now())
-    this.datePicker.highlighted.days.length = 0
+    this.datePicker.placeholder = this.datePickerFormat(Date.now()) // ставим в плейсолдер сегодняшний день недели
+    this.datePicker.highlighted.daysOfMonth.length = 0 // обнуляем подсветку следующих
   }
 }
 </script>
