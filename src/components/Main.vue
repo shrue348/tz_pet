@@ -12,8 +12,6 @@
       ></datepicker>
 
       <div class="small">Используется библиотека vuejs-datepicker@1.5.4: <a target="_blank" href="https://github.com/charliekassel/vuejs-datepicker">https://github.com/charliekassel/vuejs-datepicker</a></div>
-
-      {{this.datePicker.highlighted.daysOfMonth}}
     </div>
   </div>
 </template>
