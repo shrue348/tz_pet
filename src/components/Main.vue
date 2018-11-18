@@ -33,7 +33,7 @@ export default {
         ru: ru,
         placeholder: 'wef',
         highlighted: {
-          daysOfMonth: [],
+          dates: [],
           days: []
         }
       },
@@ -57,11 +57,11 @@ export default {
       lastDayOfMonth = new Date(new Date(day).getFullYear(), new Date(day).getMonth() + 1, 0);
       lastDayOfMonth = lastDayOfMonth.getDate()
 
-      this.datePicker.highlighted.daysOfMonth.length = 0
+      this.datePicker.highlighted.dates.length = 0
 
       while ( dayDate <= lastDayOfMonth || dayDate <= 31) {
         console.log(dayDate, lastDayOfMonth)
-        this.datePicker.highlighted.daysOfMonth.push(dayDate)
+        this.datePicker.highlighted.dates.push(new Date( new Date(day).getFullYear(), new Date(day).getMonth(), dayDate) )
         dayDate+=7
       }
 
@@ -71,7 +71,7 @@ export default {
   },
   created(){
     this.datePicker.placeholder = this.datePickerFormat(Date.now()) // ставим в плейсолдер сегодняшний день недели
-    this.datePicker.highlighted.daysOfMonth.length = 0 // обнуляем подсветку следующих
+    this.datePicker.highlighted.dates.length = 0 // обнуляем подсветку следующих
   }
 }
 </script>
